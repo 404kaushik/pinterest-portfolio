@@ -22,14 +22,14 @@ export function PinterestPin({ project, onClick }: PinterestPinProps) {
 
   return (
     <div
-      className="group relative mb-4 w-full cursor-zoom-in"
+      className="group relative w-full cursor-zoom-in transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       {/* Image Container - Pinterest uses 16px radius */}
       <div
-        className="relative w-full overflow-hidden rounded-[16px] bg-[#e9e9e9]"
+        className="relative w-full overflow-hidden rounded-2xl bg-[#e9e9e9] shadow-sm transition-shadow duration-200 group-hover:shadow-lg"
         style={{ height: cardHeight }}
       >
         {project.image ? (
@@ -135,9 +135,9 @@ export function PinterestPinSkeleton() {
   const randomHeight = heights[Math.floor(Math.random() * heights.length)]
 
   return (
-    <div className="mb-4 w-full">
+    <div className="w-full">
       <div
-        className="animate-pulse rounded-[16px] bg-[#e9e9e9]"
+        className="animate-pulse rounded-2xl bg-[#e9e9e9] shadow-sm"
         style={{ height: randomHeight }}
       />
     </div>

@@ -27,14 +27,12 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
   const [showComments, setShowComments] = useState(true)
   const [comment, setComment] = useState('')
 
-  // Related projects (exclude current)
   const relatedProjects = projects.filter(p => 
     p.id !== project.id && 
     (p.tags.some(t => project.tags.includes(t)) || 
      p.stack.some(s => project.stack.includes(s)))
   ).slice(0, 8)
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => {
@@ -42,7 +40,6 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
     }
   }, [])
 
-  // Handle escape key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -56,7 +53,6 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
     setLikesCount(prev => isLiked ? prev - 1 : prev + 1)
   }
 
-  // Generate height for image similar to Pinterest
   const heights = [400, 450, 500, 550, 600]
   const imageHeight = heights[project.id.charCodeAt(0) % heights.length]
 
@@ -104,7 +100,6 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
               </div>
             )}
 
-            {/* Image Overlay Actions */}
             <div className="absolute bottom-4 right-4 flex gap-2">
               <button className="flex h-10 w-10 items-center justify-center rounded-full bg-card/90 backdrop-blur-sm shadow-md transition-transform hover:scale-110">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
@@ -124,7 +119,6 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
           </div>
         </div>
 
-        {/* Right Side - Details */}
         <div className="flex flex-1 flex-col lg:max-w-[508px]">
           {/* Top Actions Bar */}
           <div className="sticky top-0 flex items-center justify-between border-b border-border bg-card px-6 py-4">

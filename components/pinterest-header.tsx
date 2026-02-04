@@ -40,12 +40,12 @@ export function PinterestHeader({ showSearch = true }: PinterestHeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-30 flex h-[60px] items-center gap-2 bg-white px-4">
+    <header className="sticky top-0 z-30 flex h-14 min-h-[56px] shrink-0 items-center gap-2 border-b border-[#e2e2e2] bg-white px-3 sm:px-4">
       {showSearch && (
         <div className="relative flex-1">
           <div
             className={cn(
-              'flex h-12 items-center gap-2 rounded-full px-4 transition-all',
+              'flex h-12 items-center gap-2 rounded-[16px] px-4 transition-all',
               isFocused 
                 ? 'bg-white shadow-[0_0_0_4px_#0074e8]' 
                 : 'bg-[#e9e9e9]'

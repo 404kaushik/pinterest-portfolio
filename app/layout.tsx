@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: 'New grad software engineer passionate about building beautiful, performant web experiences. View my projects, experience, and get in touch.',
   generator: 'v0.app',
   keywords: ['software engineer', 'web developer', 'portfolio', 'new grad', 'React', 'Next.js'],
-  authors: [{ name: 'Alex Chen' }],
+  authors: [{ name: 'Kaushik Nag Tumu' }],
   icons: {
     icon: [
       {

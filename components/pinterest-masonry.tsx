@@ -9,79 +9,38 @@ interface PinterestMasonryProps {
   onPinClick?: (project: Project) => void
 }
 
-export function PinterestMasonry({ 
-  projects, 
-  onPinClick
+export function PinterestMasonry({
+  projects,
+  onPinClick,
 }: PinterestMasonryProps) {
-  // Distribute items into columns for true masonry - responsive columns
-  const columnedItems = useMemo(() => {
-    // We'll render the grid using CSS columns for true masonry
-    // But we still want to distribute evenly
-    return projects
-  }, [projects])
+  const columnedItems = useMemo(() => projects, [projects])
 
   return (
-    <div 
-      className="px-4"
-      style={{
-        columnCount: 6,
-        columnGap: '16px',
-      }}
-    >
-      <style jsx>{`
-        @media (max-width: 1400px) {
-          div { column-count: 5 !important; }
-        }
-        @media (max-width: 1200px) {
-          div { column-count: 4 !important; }
-        }
-        @media (max-width: 900px) {
-          div { column-count: 3 !important; }
-        }
-        @media (max-width: 640px) {
-          div { column-count: 2 !important; }
-        }
-      `}</style>
-      {columnedItems.map((project) => (
-        <div key={project.id} className="break-inside-avoid">
-          <PinterestPin
-            project={project}
-            onClick={() => onPinClick?.(project)}
-          />
-        </div>
-      ))}
+    <div className="mx-auto w-full max-w-[1600px] px-3 py-2 sm:px-4 sm:py-3 md:px-5 lg:px-6">
+      <div className="columns-2 gap-3 sm:columns-3 sm:gap-4 md:columns-4 md:gap-5 lg:columns-5 xl:columns-6 [column-fill:balance]">
+        {columnedItems.map((project) => (
+          <div key={project.id} className="break-inside-avoid mb-3 sm:mb-4">
+            <PinterestPin
+              project={project}
+              onClick={() => onPinClick?.(project)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
 
 export function PinterestMasonrySkeleton({ count = 20 }: { count?: number }) {
   return (
-    <div 
-      className="px-4"
-      style={{
-        columnCount: 6,
-        columnGap: '16px',
-      }}
-    >
-      <style jsx>{`
-        @media (max-width: 1400px) {
-          div { column-count: 5 !important; }
-        }
-        @media (max-width: 1200px) {
-          div { column-count: 4 !important; }
-        }
-        @media (max-width: 900px) {
-          div { column-count: 3 !important; }
-        }
-        @media (max-width: 640px) {
-          div { column-count: 2 !important; }
-        }
-      `}</style>
-      {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="break-inside-avoid">
-          <PinterestPinSkeleton />
-        </div>
-      ))}
+    <div className="mx-auto w-full max-w-[1600px] px-3 py-2 sm:px-4 md:px-5 lg:px-6">
+      <div className="columns-2 gap-3 sm:columns-3 sm:gap-4 md:columns-4 md:gap-5 lg:columns-5 xl:columns-6 [column-fill:balance]">
+        {Array.from({ length: count }).map((_, i) => (
+          <div key={i} className="break-inside-avoid mb-3 sm:mb-4">
+            <PinterestPinSkeleton />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

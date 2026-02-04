@@ -18,25 +18,25 @@ export default function ExplorePage() {
     : projects
 
   return (
-    <div className="min-h-screen bg-card">
+    <div className="min-h-screen bg-[#f5f5f5]">
       <PinterestSidebar />
 
-      <main className="ml-[72px]">
+      <main className="ml-[72px] min-h-screen">
         <Suspense fallback={null}>
           <PinterestHeader />
         </Suspense>
 
-        {/* Categories / Tech Filter */}
-        <div className="border-b border-border px-4 py-4">
-          <h1 className="mb-4 text-2xl font-semibold">Explore</h1>
-          <div className="flex flex-wrap gap-2">
+        {/* Categories / Tech Filter - Pinterest style, scrollable on mobile */}
+        <div className="border-b border-[#e2e2e2] bg-white px-3 py-4 sm:px-4">
+          <h1 className="mb-4 text-xl font-bold text-[#111] sm:text-2xl">Explore</h1>
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 sm:flex-wrap">
             <button
               onClick={() => setSelectedTech(null)}
               className={cn(
-                'rounded-full px-4 py-2 text-sm font-semibold transition-colors',
+                'shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e60023] focus-visible:ring-offset-1',
                 !selectedTech
-                  ? 'bg-foreground text-card'
-                  : 'bg-secondary hover:bg-secondary/80'
+                  ? 'bg-[#111] text-white hover:bg-[#333]'
+                  : 'bg-[#efefef] text-[#111] hover:bg-[#e2e2e2]'
               )}
             >
               All
@@ -46,10 +46,10 @@ export default function ExplorePage() {
                 key={tech}
                 onClick={() => setSelectedTech(tech === selectedTech ? null : tech)}
                 className={cn(
-                  'rounded-full px-4 py-2 text-sm font-semibold transition-colors',
+                  'shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e60023] focus-visible:ring-offset-1',
                   selectedTech === tech
-                    ? 'bg-foreground text-card'
-                    : 'bg-secondary hover:bg-secondary/80'
+                    ? 'bg-[#111] text-white hover:bg-[#333]'
+                    : 'bg-[#efefef] text-[#111] hover:bg-[#e2e2e2]'
                 )}
               >
                 {tech}
@@ -59,7 +59,7 @@ export default function ExplorePage() {
         </div>
 
         {/* Grid */}
-        <div className="py-4">
+        <div className="min-h-[60vh] pb-8 pt-1 sm:pb-12">
           <PinterestMasonry
             projects={filteredProjects}
             onPinClick={setSelectedPin}
