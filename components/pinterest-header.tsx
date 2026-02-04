@@ -41,7 +41,6 @@ export function PinterestHeader({ showSearch = true }: PinterestHeaderProps) {
 
   return (
     <header className="sticky top-0 z-30 flex h-[60px] items-center gap-2 bg-white px-4">
-      {/* Search Bar - Pinterest exact styling */}
       {showSearch && (
         <div className="relative flex-1">
           <div

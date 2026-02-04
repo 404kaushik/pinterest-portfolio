@@ -55,13 +55,13 @@ export const profile = {
   title: 'Software Engineer',
   tagline: 'Building beautiful, performant web experiences',
   summary: `I'm a new grad software engineer passionate about creating intuitive user interfaces and scalable backend systems. I love turning complex problems into elegant solutions and am always eager to learn new technologies.`,
-  email: 'alex.chen@email.com',
+  email: 'kaushiknag72@outlook.com',
   linkedin: 'https://linkedin.com/in/kaushiknagtumu',
   github: 'https://github.com/404kaushik',
   twitter: 'https://twitter.com/alexchen',
   resume: '/resume.pdf',
   location: 'Toronto, ON',
-  avatar: '/avatar.jpg',
+  avatar: '/profilePic.JPG',
 }
 
 // ============================================
