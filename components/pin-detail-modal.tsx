@@ -16,8 +16,8 @@ interface PinDetailModalProps {
 
 // Fake comments data
 const fakeComments = [
-  { id: 1, user: 'Sarah M.', avatar: '', text: 'This is amazing work! Love the attention to detail.', time: '2d' },
-  { id: 2, user: 'Dev_Mike', avatar: '', text: 'Great project! How long did this take to build?', time: '1w' },
+  { id: 1, user: 'Sarah M.', avatar: '', text: 'wowwwww', time: '2d' },
+  { id: 2, user: 'Dev_Mike', avatar: '', text: 'this is so cool!!', time: '1w' },
 ]
 
 export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalProps) {
