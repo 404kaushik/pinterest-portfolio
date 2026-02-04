@@ -53,38 +53,34 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
     setLikesCount(prev => isLiked ? prev - 1 : prev + 1)
   }
 
-  const heights = [400, 450, 500, 550, 600]
-  const imageHeight = heights[project.id.charCodeAt(0) % heights.length]
-
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4 pt-8 pb-8">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-2 sm:p-4 pt-6 sm:pt-8 pb-6 sm:pb-8">
       {/* Backdrop click to close */}
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Modal Content */}
-      <div className="relative flex w-full max-w-[1016px] flex-col overflow-hidden rounded-[32px] bg-card shadow-2xl lg:flex-row">
+      <div className="relative flex w-full max-w-[1016px] flex-col overflow-hidden rounded-2xl sm:rounded-[32px] bg-card shadow-2xl lg:flex-row max-h-[100dvh] lg:max-h-[calc(100dvh-4rem)]">
         {/* Close Button (Back Arrow) */}
         <button
           onClick={onClose}
-          className="absolute left-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-card shadow-md transition-transform hover:scale-105"
+          className="absolute left-2 top-2 sm:left-4 sm:top-4 z-10 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-card shadow-md transition-transform hover:scale-105 touch-manipulation"
+          aria-label="Close"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </button>
 
-        {/* Left Side - Image */}
-        <div className="relative flex-1 bg-secondary lg:max-w-[508px]">
-          <div 
-            className="relative w-full h-full"
-            style={{ minHeight: imageHeight }}
-          >
+        {/* Left Side - Image (full image visible, contained) */}
+        <div className="relative flex flex-col min-h-[40vh] sm:min-h-[50vh] lg:min-h-0 lg:min-w-0 flex-1 shrink-0 bg-secondary lg:max-w-[508px]">
+          <div className="relative w-full flex-1 min-h-0 flex items-center justify-center">
             {project.image ? (
               <Image
                 src={project.image || "/placeholder.svg"}
                 alt={project.title}
                 fill
-                className="object-cover max-h-full"
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 508px"
                 priority
               />
             ) : (
@@ -100,8 +96,8 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
               </div>
             )}
 
-            <div className="absolute bottom-4 right-4 flex gap-2">
-              <button className="flex h-10 w-10 items-center justify-center rounded-full bg-card/90 backdrop-blur-sm shadow-md transition-transform hover:scale-110">
+            <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 flex gap-1.5 sm:gap-2">
+              <button className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-card/90 backdrop-blur-sm shadow-md transition-transform hover:scale-110 touch-manipulation" aria-label="Expand">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points="15 3 21 3 21 9" />
                   <polyline points="9 21 3 21 3 15" />
@@ -109,7 +105,7 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
                   <line x1="3" y1="21" x2="10" y2="14" />
                 </svg>
               </button>
-              <button className="flex h-10 w-10 items-center justify-center rounded-full bg-card/90 backdrop-blur-sm shadow-md transition-transform hover:scale-110">
+              <button className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-card/90 backdrop-blur-sm shadow-md transition-transform hover:scale-110 touch-manipulation" aria-label="Refresh">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
                   <path d="M21 3v5h-5" />
@@ -119,37 +115,37 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col lg:max-w-[508px]">
+        <div className="flex flex-1 flex-col min-w-0 lg:max-w-[508px]">
           {/* Top Actions Bar */}
-          <div className="sticky top-0 flex items-center justify-between border-b border-border bg-card px-6 py-4">
-            <div className="flex items-center gap-4">
+          <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-2 border-b border-border bg-card px-4 py-3 sm:px-6 sm:py-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Like */}
               <button
                 onClick={handleLike}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 touch-manipulation"
               >
                 <svg 
                   viewBox="0 0 24 24" 
-                  className={cn('h-6 w-6', isLiked && 'text-primary')} 
+                  className={cn('h-5 w-5 sm:h-6 sm:w-6', isLiked && 'text-primary')} 
                   fill={isLiked ? 'currentColor' : 'none'} 
                   stroke="currentColor" 
                   strokeWidth="2"
                 >
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
-                <span className="text-[15px] font-semibold">{likesCount}</span>
+                <span className="text-sm sm:text-[15px] font-semibold">{likesCount}</span>
               </button>
 
               {/* Comment */}
-              <button className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-secondary">
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
+              <button className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-secondary touch-manipulation">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 </svg>
               </button>
 
               {/* Share */}
-              <button className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-secondary">
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
+              <button className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-secondary touch-manipulation">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
                   <polyline points="16 6 12 2 8 6" />
                   <line x1="12" y1="2" x2="12" y2="15" />
@@ -157,8 +153,8 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
               </button>
 
               {/* More */}
-              <button className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-secondary">
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+              <button className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-secondary touch-manipulation">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="currentColor">
                   <circle cx="12" cy="12" r="1.5" />
                   <circle cx="6" cy="12" r="1.5" />
                   <circle cx="18" cy="12" r="1.5" />
@@ -166,11 +162,11 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
               </button>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {/* Board Dropdown */}
-              <button className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-secondary">
-                <span className="text-[15px] font-semibold">Portfolio</span>
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+              <button className="flex items-center gap-1 rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 hover:bg-secondary touch-manipulation">
+                <span className="text-xs sm:text-[15px] font-semibold">Portfolio</span>
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="currentColor">
                   <path d="M7 10l5 5 5-5H7z" />
                 </svg>
               </button>
@@ -179,7 +175,7 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
               <button
                 onClick={() => setIsSaved(!isSaved)}
                 className={cn(
-                  'rounded-full px-6 py-3 text-[15px] font-bold transition-colors',
+                  'rounded-full px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-[15px] font-bold transition-colors touch-manipulation',
                   isSaved
                     ? 'bg-foreground text-card'
                     : 'bg-primary text-primary-foreground hover:bg-primary/90'
@@ -191,14 +187,14 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto px-6 py-4">
+          <div className="flex-1 overflow-y-auto px-4 py-3 sm:px-6 sm:py-4 min-h-0">
             {/* Title */}
-            <h1 className="mb-2 text-[28px] font-semibold leading-tight">
+            <h1 className="mb-2 text-xl sm:text-2xl lg:text-[28px] font-semibold leading-tight">
               {project.title}
             </h1>
 
             {/* Description */}
-            <p className="mb-4 text-[15px] leading-relaxed text-foreground">
+            <p className="mb-4 text-sm sm:text-[15px] leading-relaxed text-foreground">
               {project.summary}
               {project.links.demo && (
                 <Link
@@ -213,11 +209,11 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
             </p>
 
             {/* Tech Stack Tags */}
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2">
               {project.stack.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full bg-secondary px-3 py-1 text-sm font-medium"
+                  className="rounded-full bg-secondary px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium"
                 >
                   {tech}
                 </span>
@@ -225,8 +221,8 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
             </div>
 
             {/* Author */}
-            <div className="mb-6 flex items-center gap-3">
-              <div className="relative h-12 w-12 overflow-hidden rounded-full bg-muted">
+            <div className="mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+              <div className="relative h-10 w-10 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-full bg-muted">
                 <Image
                   src={profile.avatar || "/placeholder.svg"}
                   alt={profile.name}
@@ -242,12 +238,12 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
 
             {/* Links */}
             {(project.links.demo || project.links.github) && (
-              <div className="mb-6 flex gap-3">
+              <div className="mb-4 sm:mb-6 flex flex-wrap gap-2 sm:gap-3">
                 {project.links.demo && (
                   <Link
                     href={project.links.demo}
                     target="_blank"
-                    className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-semibold transition-colors hover:bg-secondary/80"
+                    className="flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold transition-colors hover:bg-secondary/80 touch-manipulation"
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
@@ -259,7 +255,7 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
                   <Link
                     href={project.links.github}
                     target="_blank"
-                    className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-semibold transition-colors hover:bg-secondary/80"
+                    className="flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold transition-colors hover:bg-secondary/80 touch-manipulation"
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -306,17 +302,17 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
           </div>
 
           {/* Comment Input */}
-          <div className="border-t border-border p-4">
-            <div className="flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2">
+          <div className="border-t border-border p-3 sm:p-4">
+            <div className="flex items-center gap-2 sm:gap-3 rounded-full border border-border bg-card px-3 py-1.5 sm:px-4 sm:py-2">
               <input
                 type="text"
                 placeholder="Add a comment"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="flex-1 bg-transparent text-[15px] placeholder:text-muted-foreground focus:outline-none"
+                className="flex-1 min-w-0 bg-transparent text-sm sm:text-[15px] placeholder:text-muted-foreground focus:outline-none"
               />
-              <div className="flex items-center gap-2">
-                <button className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-secondary">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <button className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-secondary touch-manipulation">
                   <svg viewBox="0 0 24 24" className="h-5 w-5 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M8 14s1.5 2 4 2 4-2 4-2" />
@@ -338,9 +334,9 @@ export function PinDetailModal({ project, onClose, onPinClick }: PinDetailModalP
 
       {/* More Like This Section */}
       {relatedProjects.length > 0 && (
-        <div className="relative mt-8 w-full max-w-[1400px]">
-          <h2 className="mb-4 px-4 text-xl font-semibold text-white">More like this</h2>
-          <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 md:grid-cols-4">
+        <div className="relative mt-4 sm:mt-8 w-full max-w-[1400px]">
+          <h2 className="mb-3 sm:mb-4 px-2 sm:px-4 text-base sm:text-xl font-semibold text-white">More like this</h2>
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 px-2 sm:px-4 sm:grid-cols-3 md:grid-cols-4">
             {relatedProjects.map((p) => (
               <PinterestPin
                 key={p.id}

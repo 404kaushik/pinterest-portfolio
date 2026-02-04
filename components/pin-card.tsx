@@ -20,8 +20,15 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
   const [isSaved, setIsSaved] = useState(false)
   const { toast } = useToast()
 
-  // Vary heights for masonry effect
-  const heights = ['h-48', 'h-56', 'h-64', 'h-72', 'h-52', 'h-60']
+  // Vary heights for masonry effect (responsive)
+  const heights = [
+    'h-40 sm:h-48 md:h-56 lg:h-64',
+    'h-44 sm:h-52 md:h-60 lg:h-72',
+    'h-36 sm:h-44 md:h-52 lg:h-60',
+    'h-48 sm:h-56 md:h-64 lg:h-72',
+    'h-40 sm:h-48 md:h-54 lg:h-60',
+    'h-44 sm:h-52 md:h-58 lg:h-68',
+  ]
   const heightClass = heights[index % heights.length]
 
   const handleSave = (e: React.MouseEvent) => {
@@ -94,9 +101,9 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
             )}
           >
             <div className="flex items-center gap-2">
-              <span className="px-4 py-2 bg-white text-black rounded-full text-sm font-medium flex items-center gap-1.5">
+              <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white text-black rounded-full text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-1.5">
                 View Project
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </span>
             </div>
           </div>
@@ -105,7 +112,7 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
           <button
             onClick={handleSave}
             className={cn(
-              'absolute top-3 right-3 p-2.5 rounded-full transition-all duration-200',
+              'absolute top-2 right-2 sm:top-3 sm:right-3 p-2 sm:p-2.5 rounded-full transition-all duration-200 touch-manipulation',
               isHovered || isSaved ? 'opacity-100' : 'opacity-0',
               isSaved
                 ? 'bg-primary text-primary-foreground'
@@ -121,7 +128,7 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
           {/* Quick links */}
           <div
             className={cn(
-              'absolute bottom-3 right-3 flex gap-2 transition-all duration-200',
+              'absolute bottom-2 right-2 sm:bottom-3 sm:right-3 flex gap-1.5 sm:gap-2 transition-all duration-200',
               isHovered ? 'opacity-100' : 'opacity-0'
             )}
           >
@@ -131,7 +138,7 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
+                className="p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center sm:min-w-0 sm:min-h-0"
                 aria-label="View on GitHub"
               >
                 <Github className="w-4 h-4" />
@@ -143,7 +150,7 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
+                className="p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center sm:min-w-0 sm:min-h-0"
                 aria-label="View live demo"
               >
                 <ExternalLink className="w-4 h-4" />
@@ -153,23 +160,23 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
         </div>
 
         {/* Content */}
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           {/* Title */}
-          <h3 className="font-semibold text-base leading-tight line-clamp-2 mb-1.5 group-hover:text-primary transition-colors">
+          <h3 className="font-semibold text-sm sm:text-base leading-tight line-clamp-2 mb-1 sm:mb-1.5 group-hover:text-primary transition-colors">
             {project.title}
           </h3>
 
           {/* Summary */}
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-2 sm:mb-3">
             {project.summary}
           </p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2 sm:mb-3">
             {project.tags.slice(0, 2).map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 bg-muted rounded-full text-xs text-muted-foreground"
+                className="px-1.5 sm:px-2 py-0.5 bg-muted rounded-full text-[10px] sm:text-xs text-muted-foreground"
               >
                 {tag}
               </span>
@@ -177,17 +184,17 @@ export function PinCard({ project, index = 0 }: PinCardProps) {
           </div>
 
           {/* Tech stack */}
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5">
             {project.stack.slice(0, 4).map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-0.5 bg-muted/50 border border-border rounded-full text-xs text-muted-foreground"
+                className="px-1.5 sm:px-2 py-0.5 bg-muted/50 border border-border rounded-full text-[10px] sm:text-xs text-muted-foreground"
               >
                 {tech}
               </span>
             ))}
             {project.stack.length > 4 && (
-              <span className="px-2 py-0.5 text-xs text-muted-foreground">
+              <span className="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs text-muted-foreground">
                 +{project.stack.length - 4}
               </span>
             )}
